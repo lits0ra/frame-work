@@ -1,5 +1,5 @@
 require 'json'
-require 'erb'
+require 'tilt'
 
 class SimpleApp
   HASH = {}
@@ -23,20 +23,18 @@ def get(route, &block)
   SimpleApp::HASH.store(route, block)
 end
 
-def find_template(name, format)
-  if format == :erb
-    template = File.open(name, 'r', &:read)
-    erb_engin = ERB.new(template)
-    erb_engin.result
-  elsif format == :html
-    File.open(name, 'r', &:read)
-  elsif format == :json
-    JSON.generate(name)
-  end
+def find_template(name)
+  File.open(name, 'r', &:read)
 end
 
 def compile_template(name, format)
-  text(find_template(name, format))
+  tiltEngine = Tilt[name]
+  if tiltEngine.nil?
+    raise ".#{format} template engine not found!"
+  end
+  # template = File.open(name, 'r', &:read)
+  erb_engin = Tilt.new(name)
+  text(erb_engin.render)
 end
 
 def text(txt)
@@ -48,7 +46,7 @@ def text(txt)
 end
 
 def json(json)
-  compile_template(json, :json)
+  text(JSON.generate(json))
 end
 
 def html(name)
