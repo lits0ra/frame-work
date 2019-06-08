@@ -2,10 +2,10 @@ require './simple_app'
 
 get '/name' do
   @sssss = 11
-  erb("./index.erb")
+  html("./index.html")
 end
 
 get '/user/:id/hello' do
   @sssss = 11
-  erb("./index.erb")
+  html("./index.html")
 end
