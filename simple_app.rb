@@ -2,10 +2,13 @@
 
 require 'json'
 require 'tilt'
+require 'binding_of_caller'
+
 
 class SimpleApp
   HASH = {}
   PARAMS = {}
+  @a = 1
   @@not_found_response = '<h1>404 Not found</h1>'
   def self.check_path(request_path, hash_key)
     request_path_list = request_path.split('/')
@@ -44,6 +47,8 @@ class SimpleApp
       return block&.call
     end
   end
+
+
 end
 
 def params
@@ -59,10 +64,17 @@ def find_template(name)
 end
 
 def compile_template(name, format)
+  variable_value = {}
+  for valiable in binding.of_caller(2).eval("instance_variables")
+    value = binding.of_caller(2).eval(valiable.to_s)
+    p valiable
+    valiable = valiable.to_s.gsub!(/@/, "")
+    variable_value[valiable] = value
+  end
   tiltEngine = Tilt[name]
   raise ".#{format} template engine not found!" if tiltEngine.nil?
   erb_engin = Tilt.new(name)
-  text(erb_engin.render)
+  text(erb_engin.render(Hash, variable_value))
 end
 
 def text(txt)

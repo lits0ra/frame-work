@@ -1,4 +1,5 @@
 require './simple_app'
+require 'tilt'
 
 get '/name' do
   @sssss = 11
@@ -7,5 +8,5 @@ end
 
 get '/user/:id/hello' do
   @sssss = 11
-  html("./index.html")
+  erb("./index.erb")
 end

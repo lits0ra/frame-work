@@ -1,0 +1,7 @@
+db:
+  local:
+    adapter:  sqlite3
+    host:     localhost
+    username: sample_user
+    password: samplesample
+    database: sample_db
