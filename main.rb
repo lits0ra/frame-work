@@ -1,5 +1,4 @@
 require './simple_app'
-require 'tilt'
 
 get '/name' do
   @sssss = 11
