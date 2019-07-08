@@ -13,4 +13,4 @@ install:
 run:  
 ```rackup```
 
-View at: http://localhost:9292/
+View at: http://localhost:9292/hello
