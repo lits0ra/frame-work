@@ -8,7 +8,6 @@ require 'binding_of_caller'
 class SimpleApp
   HASH = {}
   PARAMS = {}
-  @a = 1
   @@not_found_response = '<h1>404 Not found</h1>'
   def self.check_path(request_path, hash_key)
     request_path_list = request_path.split('/')
