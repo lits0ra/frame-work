@@ -8,7 +8,7 @@ get '/hello' do
 end
 ```
 install:  
-```git clone https://github.com/sinatra/sinatra.git```  
+```git clone https://github.com/lits0ra/frame-work.git```  
 
 run:  
 ```rackup```
